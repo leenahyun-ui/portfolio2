@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="teal">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국외대 국제통상학과 포트폴리오</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 테마별 색상 변수 설정 */
+        :root[data-theme="teal"] {
+            --primary: #14b8a6;
+            --primary-dark: #0f766e;
+            --primary-light: #f0fdf4;
+            --primary-soft: #ccfbf1;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --header-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        :root[data-theme="blue"] {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+            --primary-soft: #dbeafe;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --header-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        :root[data-theme="dark"] {
+            --primary: #2dd4bf;
+            --primary-dark: #0f766e;
+            --primary-light: #1e293b;
+            --primary-soft: #334155;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --header-bg: rgba(15, 23, 42, 0.95);
+        }
+
+        :root[data-theme="warm"] {
+            --primary: #f59e0b;
+            --primary-dark: #b45309;
+            --primary-light: #fffbeb;
+            --primary-soft: #fef3c7;
+            --bg: #fafaf9;
+            --card-bg: #ffffff;
+            --text-main: #292524;
+            --text-muted: #78716c;
+            --border: #e7e5e4;
+            --header-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Pretendard", sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg); color: var(--text-main); line-height: 1.6; padding-bottom: 80px; transition: background-color 0.3s, color 0.3s; }
+
+        header { background-color: var(--header-bg); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); position: fixed; top: 0; left: 0; right: 0; z-index: 900; }
+        .nav-container { max-width: 900px; margin: 0 auto; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
+        .brand { font-size: 1.2rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        .brand span { color: var(--primary-dark); }
+
+        .nav-actions { display: flex; gap: 8px; align-items: center; }
+        
+        .theme-select {
+            background: var(--card-bg); border: 1px solid var(--border); color: var(--text-main);
+            padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+        }
+
+        .admin-btn { border: 1px solid var(--border); background: var(--card-bg); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+        .admin-btn:hover { border-color: var(--primary); color: var(--primary-dark); background: var(--primary-light); }
+        .btn-change-pass { display: none; background: var(--primary-light); border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; color: var(--text-main); cursor: pointer; }
+        .admin-mode .btn-change-pass { display: inline-block; }
+
+        /* 히어로 프로필 영역 */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            padding: 100px 24px 60px 24px;
+            position: relative;
+        }
+
+        .hero-card {
+            max-width: 900px;
+            width: 100%;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 12px 40px -10px rgba(0,0,0,0.08);
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-avatar {
+            width: 160px; height: 160px; border-radius: 50%;
+            background-size: cover; background-position: center;
+            border: 4px solid var(--primary-light); box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+
+        .hero-info .tagline {
+            display: inline-block; background: var(--primary-light); color: var(--primary-dark);
+            padding: 4px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 12px;
+            border: 1px solid var(--primary-soft);
+        }
+
+        .hero-info h1 { font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px; letter-spacing: -0.5px; }
+        .hero-info .dept { font-size: 1.15rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 20px; }
+
+        .about-box {
+            background: var(--bg); border-radius: 16px;
+            padding: 20px; margin-bottom: 24px; border: 1px solid var(--border); border-left: 4px solid var(--primary-dark);
+        }
+
+        .about-box p { font-size: 0.95rem; line-height: 1.6; color: var(--text-main); }
+
+        .strength-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+        .strength-pill { background: var(--primary-light); color: var(--primary-dark); padding: 8px 16px; border-radius: 30px; font-size: 0.88rem; font-weight: 800; border: 1px solid var(--primary-soft); }
+
+        .scroll-down {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            color: var(--primary-dark); font-size: 0.9rem; font-weight: 700;
+            display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translate(-50%, 0);} 40% {transform: translate(-50%, -10px);} 60% {transform: translate(-50%, -5px);} }
+
+        .main-container { max-width: 900px; margin: 40px auto 0 auto; padding: 0 24px; }
+
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+        .section-title { font-size: 1.5rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .section-title i { color: var(--primary-dark); }
+
+        .header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+        .btn-filter-toggle {
+            background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted);
+            padding: 8px 16px; border-radius: 20px; font-size: 0.88rem; font-weight: 700;
+            cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;
+        }
+        .btn-filter-toggle:hover { border-color: var(--primary); color: var(--primary-dark); background: var(--primary-light); }
+
+        .btn-add { background: var(--primary-dark); color: white; border: none; padding: 8px 16px; border-radius: 20px; font-size: 0.88rem; font-weight: 700; cursor: pointer; display: none; }
+        .admin-mode .btn-add { display: inline-block; }
+
+        .btn-edit-profile { position: absolute; top: 20px; right: 20px; background: var(--primary-dark); color: white; border: none; padding: 6px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: none; }
+        .admin-mode .btn-edit-profile { display: flex; align-items: center; gap: 6px; }
+
+        .filter-panel { display: none; background: var(--card-bg); padding: 18px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 32px; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05); }
+        .filter-panel.active { display: block; }
+
+        .filter-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .filter-btn { background: var(--bg); border: 1px solid var(--border); padding: 8px 18px; border-radius: 20px; font-size: 0.88rem; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+        .filter-btn:hover { border-color: var(--primary); color: var(--primary-dark); }
+        .filter-btn.active { background: var(--primary-dark); color: white; border-color: var(--primary-dark); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+        .exp-card { background: var(--card-bg); border-radius: 24px; border: 1px solid var(--border); padding: 32px; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05); margin-bottom: 28px; position: relative; }
+        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 10px; }
+        .exp-title { font-size: 1.35rem; font-weight: 800; color: var(--text-main); }
+        .exp-org { font-size: 1rem; font-weight: 700; color: var(--primary-dark); margin-top: 2px; }
+        .exp-period { font-size: 0.88rem; color: var(--text-muted); font-weight: 500; white-space: nowrap; }
+
+        .kw-badge { font-size: 0.8rem; font-weight: 700; padding: 4px 12px; border-radius: 8px; background-color: var(--bg); color: var(--text-muted); display: inline-block; margin-right: 6px; margin-bottom: 6px; }
+        .kw-badge.highlight { background-color: var(--primary-light); color: var(--primary-dark); border: 1px solid var(--primary-soft); }
+
+        .exp-summary { font-size: 0.98rem; color: var(--text-muted); margin: 16px 0 20px 0; line-height: 1.6; }
+
+        .toggle-btn { background: var(--primary-light); border: 1px solid var(--primary-soft); color: var(--primary-dark); padding: 10px 20px; border-radius: 12px; font-size: 0.88rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; transition: all 0.2s; }
+        .toggle-btn:hover { background: var(--primary-soft); }
+
+        .detail-panel { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px dashed var(--border); }
+        .detail-panel.active { display: block; }
+
+        .story-section { margin-bottom: 16px; }
+        .story-label { font-size: 0.85rem; font-weight: 800; color: var(--primary-dark); text-transform: uppercase; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+        .story-text { font-size: 0.93rem; color: var(--text-main); background: var(--bg); padding: 14px 16px; border-radius: 8px; border: 1px solid var(--border); line-height: 1.6; }
+
+        .admin-controls { display: none; position: absolute; top: 24px; right: 24px; gap: 8px; }
+        .admin-mode .admin-controls { display: flex; }
+        .btn-act { border: none; background: var(--bg); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
+        .btn-act.del { background: #fee2e2; color: #dc2626; }
+
+        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
+        .modal-overlay.active { display: flex; }
+        .modal-content { background: var(--card-bg); border-radius: 24px; width: 100%; max-width: 650px; max-height: 90vh; overflow-y: auto; padding: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); color: var(--text-main); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; }
+        .form-control { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; background: var(--bg); color: var(--text-main); }
+        textarea.form-control { min-height: 80px; }
+        .form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+        .btn-submit { background: var(--primary-dark); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        .btn-cancel { background: var(--bg); border: 1px solid var(--border); color: var(--text-main); padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+        .kw-checkboxes { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; background: var(--bg); padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
+        .kw-check-item { font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer; }
+
+        /* 📱 모바일 최적화 미디어 쿼리 */
+        @media (max-width: 768px) {
+            .nav-container { padding: 12px 16px; }
+            .brand { font-size: 1rem; }
+            .admin-btn, .btn-change-pass, .theme-select { padding: 5px 8px; font-size: 0.75rem; }
+
+            .hero-section { padding: 80px 16px 50px 16px; }
+            .hero-card {
+                grid-template-columns: 1fr;
+                padding: 28px 20px;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .hero-avatar { width: 120px; height: 120px; }
+            .hero-info h1 { font-size: 1.7rem; }
+            .hero-info .dept { font-size: 1rem; }
+            .about-box { text-align: left; padding: 16px; }
+
+            .strength-pills { justify-content: center; }
+
+            .main-container { padding: 0 16px; margin-top: 20px; }
+            .section-title { font-size: 1.25rem; }
+            .exp-card { padding: 20px; border-radius: 16px; }
+            
+            .exp-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .exp-title { font-size: 1.15rem; }
+            .exp-period { font-size: 0.8rem; margin-top: 2px; }
+
+            .modal-content { padding: 20px; }
+            .btn-edit-profile { top: 12px; right: 12px; font-size: 0.75rem; padding: 4px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="brand">
+                <i class="fa-solid fa-leaf"></i> <span id="dispHeaderBrand">PORTFOLIO HUB</span>
+            </div>
+            <div class="nav-actions">
+                <!-- 테마 변경 드롭다운 -->
+                <select class="theme-select" id="themeSelect" onchange="changeTheme(this.value)">
+                    <option value="teal">🌿 민트</option>
+                    <option value="blue">🌊 블루</option>
+                    <option value="dark">🌙 다크</option>
+                    <option value="warm">🍁 앰버</option>
+                </select>
+                <button class="btn-change-pass" onclick="openPassModal()"><i class="fa-solid fa-key"></i> 암호</button>
+                <button class="admin-btn" id="adminToggleBtn" onclick="toggleAdminMode()"><i class="fa-solid fa-lock"></i> 관리자</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 프로필 히어로 영역 -->
+    <section class="hero-section">
+        <div class="hero-card">
+            <button class="btn-edit-profile" onclick="openProfileModal()"><i class="fa-solid fa-pen"></i> 프로필 & 로고 수정</button>
+            <div class="hero-avatar" id="dispAvatar"></div>
+            <div class="hero-info">
+                <span class="tagline" id="dispTagline">디테일 중심의 디렉터형 인재</span>
+                <h1 id="dispName">한국외국어대학교 지원자</h1>
+                <div class="dept" id="dispDept">국제통상학과 (2022 입학 / 재학)</div>
+                
+                <div class="about-box">
+                    <p><b>[한 줄 소개]</b> <span id="dispAbout">"한 번의 소통으로 세부 디테일까지 완벽히 파악하며, 정기적인 피드백과 투명한 보고를 통해 업무 오차를 사전 차단하는 인재입니다."</span></p>
+                    <p style="margin-top: 8px;"><b>[입사 후 포부]</b> <span id="dispAspiration">세무 실무와 신규 매장 세팅 및 세트메뉴 기획 경험을 바탕으로, 조직의 목표를 숫자로 증명하고 효율적인 소통 교두보 역할을 수행하겠습니다.</span></p>
+                </div>
+
+                <div class="strength-pills" id="dispStrengths"></div>
+            </div>
+        </div>
+        <a href="#experiences" class="scroll-down">
+            <span>주요 경험 및 성과 스크롤</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- 경험 목록 구역 -->
+    <div class="main-container" id="experiences">
+        <section>
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <span>분석된 경험 포트폴리오</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-filter-toggle" onclick="toggleFilterPanel()">
+                        <i class="fa-solid fa-filter"></i> 역량 키워드 필터
+                    </button>
+                    <button class="btn-add" onclick="openExpModal()"><i class="fa-solid fa-plus"></i> 새 경험 추가</button>
+                </div>
+            </div>
+
+            <div class="filter-panel" id="filterPanel">
+                <div style="font-size:0.85rem; font-weight:700; color:var(--primary-dark); margin-bottom:10px;">
+                    <i class="fa-solid fa-sliders"></i> 특정 역량 키워드를 클릭하여 관련 경험만 모아보세요.
+                </div>
+                <div class="filter-tags" id="filterContainer"></div>
+            </div>
+
+            <div id="experienceGrid"></div>
+        </section>
+    </div>
+
+    <!-- 1. 프로필 정보 & 상단 브랜딩 타이틀 수정 모달 -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>프로필 정보 & 상단 타이틀 수정</h3>
+                <button onclick="closeProfileModal()" style="border:none; background:none; cursor:pointer; color:var(--text-main);"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveProfile(event)">
+                <div class="form-group">
+                    <label>상단 브랜드 로고 타이틀 (헤더 글씨)</label>
+                    <input type="text" class="form-control" id="pHeaderBrand" placeholder="PORTFOLIO HUB" required>
+                </div>
+                <div class="form-group">
+                    <label>프로필 사진 파일 직접 업로드</label>
+                    <input type="file" class="form-control" id="pAvatarFile" accept="image/*" onchange="handleImageUpload(event)">
+                </div>
+                <div class="form-group">
+                    <label>상단 한줄 태그라인</label>
+                    <input type="text" class="form-control" id="pTagline" required>
+                </div>
+                <div class="form-group">
+                    <label>이름</label>
+                    <input type="text" class="form-control" id="pName" required>
+                </div>
+                <div class="form-group">
+                    <label>소속 / 전공 학과</label>
+                    <input type="text" class="form-control" id="pDept" required>
+                </div>
+                <div class="form-group">
+                    <label>한 줄 소개</label>
+                    <textarea class="form-control" id="pAbout" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>입사 후 포부</label>
+                    <textarea class="form-control" id="pAspiration" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>핵심 강점 3가지 (쉼표 구분)</label>
+                    <input type="text" class="form-control" id="pStrengths" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeProfileModal()">취소</button>
+                    <button type="submit" class="btn-submit">저장하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. 경험 수정/추가 모달 -->
+    <div class="modal-overlay" id="expModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">경험 데이터 수정</h3>
+                <button onclick="closeExpModal()" style="border:none; background:none; cursor:pointer; color:var(--text-main);"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveExp(event)">
+                <input type="hidden" id="expId">
+                <div class="form-group">
+                    <label>경험 제목</label>
+                    <input type="text" class="form-control" id="formTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>소속 / 기관</label>
+                    <input type="text" class="form-control" id="formOrg" required>
+                </div>
+                <div class="form-group">
+                    <label>기간</label>
+                    <input type="text" class="form-control" id="formPeriod" required>
+                </div>
+                <div class="form-group">
+                    <label>8대 핵심 역량 선택</label>
+                    <div class="kw-checkboxes" id="formKeywords"></div>
+                </div>
+                <div class="form-group">
+                    <label>요약 설명</label>
+                    <input type="text" class="form-control" id="formSummary" required>
+                </div>
+                <div class="form-group">
+                    <label>프로젝트 배경 및 목표</label>
+                    <textarea class="form-control" id="formBg" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>핵심 실행 과정 & 소통 방식</label>
+                    <textarea class="form-control" id="formAction" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>정량적 성과 & 교훈</label>
+                    <textarea class="form-control" id="formResult" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeExpModal()">취소</button>
+                    <button type="submit" class="btn-submit">저장하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. 비밀번호 변경 모달 -->
+    <div class="modal-overlay" id="passModal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3>관리자 비밀번호 변경</h3>
+                <button onclick="closePassModal()" style="border:none; background:none; cursor:pointer; color:var(--text-main);"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="savePassword(event)">
+                <div class="form-group">
+                    <label>현재 비밀번호</label>
+                    <input type="password" class="form-control" id="currPass" required>
+                </div>
+                <div class="form-group">
+                    <label>새 비밀번호</label>
+                    <input type="password" class="form-control" id="newPass" required>
+                </div>
+                <div class="form-group">
+                    <label>새 비밀번호 확인</label>
+                    <input type="password" class="form-control" id="newPassConfirm" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closePassModal()">취소</button>
+                    <button type="submit" class="btn-submit">변경하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const KEYWORDS = ['전체', '성공성취', '실패,극복', '주도성(과정,결과)', '협력,팀웍', '끈기,인내', '리더십', '도전열정', '정의개선'];
+        let activeFilter = '전체';
+        let isAdmin = false;
+        let tempAvatarBase64 = null;
+
+        let adminPassword = localStorage.getItem('admin_pass') || '1234';
+        let savedTheme = localStorage.getItem('app_theme') || 'teal';
+
+        const defaultProfile = {
+            headerBrand: 'PORTFOLIO HUB',
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400',
+            tagline: '디테일 중심의 디렉터형 인재',
+            name: '한국외국어대학교 지원자',
+            dept: '국제통상학과 (2022 입학 / 재학)',
+            about: '"한 번의 소통으로 세부 디테일까지 완벽히 파악하며, 정기적인 피드백과 투명한 보고를 통해 업무 오차를 사전 차단하는 인재입니다."',
+            aspiration: '세무 실무와 신규 매장 세팅 및 세트메뉴 기획 경험을 바탕으로, 조직의 목표를 숫자로 증명하고 효율적인 소통 교두보 역할을 수행하겠습니다.',
+            strengths: ['원샷 이해 & 명확한 전달력', '투명한 진행 상황 상시 보고', '주기적 피드백 & 체크 습관']
+        };
+
+        const defaultExps = [
+            {
+                id: 'exp1',
+                title: '세무법인 세종TSI 세무 사무보조 & 법무-세무 커뮤니케이션',
+                org: '세무법인 세종TSI',
+                period: '2025.01 ~ 2025.12 (1년)',
+                summary: '비상장주식 평가, 증여 및 양수도 계약 서류 정밀 작성 및 법무팀-세무사 간 지시 조율 체계화',
+                keywords: ['성공성취', '주도성(과정,결과)', '정의개선', '끈기,인내'],
+                bg: '세무 서류는 숫자의 오차가 법적 리스크로 이어지는 환경으로, 정확한 수치 입력 및 부서 간 전달 절차가 중요했습니다.',
+                action: '양도코리아 프로그램을 활용해 계약 서류를 정확히 작성했습니다. 특히 정관 개정 시 법무팀의 개입 절차에서 지시사항(직인 날인법 등)을 한 번에 정리하여 세무사님께 전달하고, 일정 조율 및 상시 경과 보고를 도맡았습니다.',
+                result: '부서 간 오해 없는 조율을 이끌어내며 1년간 비상장주식 평가 및 세무 관련 서류를 무결점으로 처리하여 실무 신뢰를 쌓았습니다.'
+            },
+            {
+                id: 'exp2',
+                title: '수제맥주(탐스비어) & 타코 신규매장 세팅 및 세트메뉴 개발',
+                org: '탐스비어 / 타코 전문 신규매장',
+                period: '2024.01 ~ 근무',
+                summary: '1인 근무 매장 최고 매출 달성(60만 원), 인센티브 연속 수령, 타코 매장 브랜딩 및 메뉴 개발 주도',
+                keywords: ['성공성취', '주도성(과정,결과)', '도전열정', '협력,팀웍'],
+                bg: '일 평균 35만 원 선의 매장에서 혼자 근무하며 매출을 극대화하고, 사장님의 신규 타코 매장 창업 프로세스 전체를 지원해야 했습니다.',
+                action: '빠른 응대와 재고 체크로 단독 근무일 최고 매출 60만 원을 기록하고 인센티브를 연속 수령했습니다. 신규 타코 매장 오픈 시 테이스팅, 인테리어에 의견을 내고 미대 친구들과 컨택하여 시트지 및 메뉴판 제작을 주도했습니다. 이후 알바를 지속하며 판매 데이터를 분석해 세트메뉴를 자체 개발했습니다.',
+                result: '개발한 세트메뉴가 주력 상품으로 자리 잡아 매장 전체 매출 상승에 기여했습니다.'
+            },
+            {
+                id: 'exp3',
+                title: '한국외대 국제통상학과 학과 조교 (행정 & 문의 응대)',
+                org: '한국외국어대학교 국제통상학과',
+                period: '2024.02 ~ 2025.01 / 2026.08 ~ 재직중',
+                summary: '교수진 및 학생 문의 1차 명확 응대, 학과 주요 행사 진행 스케줄링 및 행정 관리',
+                keywords: ['주도성(과정,결과)', '협력,팀웍', '정의개선'],
+                bg: '학사 문의와 행사 준비가 다발적으로 일어나는 공간에서 정확한 소통 기준이 필수적이었습니다.',
+                action: '문의 접수 시 요청 핵심을 즉시 파악하여 원샷으로 안내하고, 행사진행 현황을 체크리스트로 관리하며 담당자에게 실시간 경과를 투명 보고했습니다.',
+                result: '행정 처리 정확도를 인정받아 복학 후 학과 조교로 재채용되는 성과를 이뤘습니다.'
+            },
+            {
+                id: 'exp4',
+                title: 'ESG 동아리 훕세이버스 (20개+ 기업 ESG 보고서 정밀 분석)',
+                org: 'ESG 학술동아리 훕세이버스',
+                period: '2025년 2학기',
+                summary: '주요 기업 ESG 공시 지표 검토를 통한 우수 보고서 기준 정립 프로젝트',
+                keywords: ['성공성취', '주도성(과정,결과)', '도전열정', '정의개선'],
+                bg: '다양한 기업의 ESG 공시 방식 속에서 객관적인 좋은 보고서의 표준 기준 도출이 필요했습니다.',
+                action: '20개 이상 기업의 보고서 지표를 정밀 검토하며 장·단점을 분석하고, 정기 피드백 회의를 통해 분석 진행 상태를 공유했습니다.',
+                result: 'ESG 종합 분석 데이터베이스 구축 및 우수 보고서 평가 프레임워크 수립에 기여했습니다.'
+            },
+            {
+                id: 'exp5',
+                title: '이탈리아 로마 교환학생 다국적 팀플 발표 & 일정 리딩',
+                org: '이탈리아 로마 현지 대학',
+                period: '2026년',
+                summary: '문화/시차 차이로 인한 팀원 소통 지연 극복 및 프로젝트 일정 조율 완료',
+                keywords: ['협력,팀웍', '리더십', '실패,극복', '끈기,인내'],
+                bg: '다국적 학생들 간 일정 지연으로 프로젝트 기한 준수 위험이 발생했습니다.',
+                action: '요점을 정돈한 요약 메시지로 명확히 커뮤니케이션하고, 개별 스케줄 체크 및 진행 상황을 교수님께 지속 공유했습니다.',
+                result: '프로젝트 완수 및 담당 교수님 최고 평가 획득을 이끌어냈습니다.'
+            }
+        ];
+
+        let profileData = JSON.parse(localStorage.getItem('my_profile')) || defaultProfile;
+        let experiences = JSON.parse(localStorage.getItem('my_exps')) || defaultExps;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            changeTheme(savedTheme);
+            document.getElementById('themeSelect').value = savedTheme;
+            renderProfile();
+            renderFilters();
+            renderExps();
+        });
+
+        function changeTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('app_theme', themeName);
+        }
+
+        function toggleAdminMode() {
+            if (!isAdmin) {
+                const pass = prompt('비밀번호를 입력하세요:');
+                if (pass === adminPassword) {
+                    isAdmin = true;
+                    document.body.classList.add('admin-mode');
+                    document.getElementById('adminToggleBtn').innerHTML = '<i class="fa-solid fa-unlock"></i> 로그아웃';
+                    alert('관리자 모드가 활성화되었습니다.');
+                } else if (pass !== null) alert('비밀번호가 올바르지 않습니다.');
+            } else {
+                isAdmin = false;
+                document.body.classList.remove('admin-mode');
+                document.getElementById('adminToggleBtn').innerHTML = '<i class="fa-solid fa-lock"></i> 관리자';
+                alert('일반 모드로 전환되었습니다.');
+            }
+        }
+
+        function openPassModal() {
+            document.getElementById('currPass').value = '';
+            document.getElementById('newPass').value = '';
+            document.getElementById('newPassConfirm').value = '';
+            document.getElementById('passModal').classList.add('active');
+        }
+
+        function closePassModal() {
+            document.getElementById('passModal').classList.remove('active');
+        }
+
+        function savePassword(e) {
+            e.preventDefault();
+            const curr = document.getElementById('currPass').value;
+            const newP = document.getElementById('newPass').value;
+            const confirmP = document.getElementById('newPassConfirm').value;
+
+            if (curr !== adminPassword) {
+                alert('현재 비밀번호가 일치하지 않습니다.');
+                return;
+            }
+
+            if (newP !== confirmP) {
+                alert('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+                return;
+            }
+
+            adminPassword = newP;
+            localStorage.setItem('admin_pass', adminPassword);
+            alert('비밀번호가 성공적으로 변경되었습니다!');
+            closePassModal();
+        }
+
+        function toggleFilterPanel() {
+            const panel = document.getElementById('filterPanel');
+            panel.classList.toggle('active');
+        }
+
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    tempAvatarBase64 = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function renderProfile() {
+            document.getElementById('dispHeaderBrand').innerText = profileData.headerBrand || 'PORTFOLIO HUB';
+            document.getElementById('dispAvatar').style.backgroundImage = `url('${profileData.avatar}')`;
+            document.getElementById('dispTagline').innerText = profileData.tagline;
+            document.getElementById('dispName').innerText = profileData.name;
+            document.getElementById('dispDept').innerText = profileData.dept;
+            document.getElementById('dispAbout').innerText = profileData.about;
+            document.getElementById('dispAspiration').innerText = profileData.aspiration;
+
+            document.getElementById('dispStrengths').innerHTML = profileData.strengths.map(s => 
+                `<div class="strength-pill"><i class="fa-solid fa-check"></i> ${s}</div>`
+            ).join('');
+        }
+
+        function openProfileModal() {
+            tempAvatarBase64 = null;
+            document.getElementById('pHeaderBrand').value = profileData.headerBrand || 'PORTFOLIO HUB';
+            document.getElementById('pTagline').value = profileData.tagline;
+            document.getElementById('pName').value = profileData.name;
+            document.getElementById('pDept').value = profileData.dept;
+            document.getElementById('pAbout').value = profileData.about;
+            document.getElementById('pAspiration').value = profileData.aspiration;
+            document.getElementById('pStrengths').value = profileData.strengths.join(', ');
+            document.getElementById('profileModal').classList.add('active');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').classList.remove('active');
+        }
+
+        function saveProfile(e) {
+            e.preventDefault();
+            const strengthArr = document.getElementById('pStrengths').value.split(',').map(s => s.trim()).filter(s => s);
+
+            profileData = {
+                headerBrand: document.getElementById('pHeaderBrand').value,
+                avatar: tempAvatarBase64 || profileData.avatar,
+                tagline: document.getElementById('pTagline').value,
+                name: document.getElementById('pName').value,
+                dept: document.getElementById('pDept').value,
+                about: document.getElementById('pAbout').value,
+                aspiration: document.getElementById('pAspiration').value,
+                strengths: strengthArr
+            };
+
+            localStorage.setItem('my_profile', JSON.stringify(profileData));
+            renderProfile();
+            closeProfileModal();
+        }
+
+        function renderFilters() {
+            document.getElementById('filterContainer').innerHTML = KEYWORDS.map(k => 
+                `<button class="filter-btn ${k === activeFilter ? 'active' : ''}" onclick="setFilter('${k}')">${k}</button>`
+            ).join('');
+        }
+
+        function setFilter(k) { activeFilter = k; renderFilters(); renderExps(); }
+
+        function toggleDetail(id) {
+            const panel = document.getElementById('panel-' + id);
+            const btn = document.getElementById('btn-' + id);
+            if (panel.classList.contains('active')) {
+                panel.classList.remove('active');
+                btn.innerHTML = '<i class="fa-solid fa-chevron-down"></i> 상세 서술 과정 보기';
+            } else {
+                panel.classList.add('active');
+                btn.innerHTML = '<i class="fa-solid fa-chevron-up"></i> 내용 접기';
+            }
+        }
+
+        function renderExps() {
+            let list = experiences;
+            if (activeFilter !== '전체') list = experiences.filter(e => e.keywords && e.keywords.includes(activeFilter));
+
+            document.getElementById('experienceGrid').innerHTML = list.map(e => `
+                <div class="exp-card">
+                    <div class="admin-controls">
+                        <button class="btn-act" onclick="editExp('${e.id}')">수정</button>
+                        <button class="btn-act del" onclick="deleteExp('${e.id}')">삭제</button>
+                    </div>
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-title">${e.title}</div>
+                            <div class="exp-org">${e.org}</div>
+                        </div>
+                        <div class="exp-period">${e.period}</div>
+                    </div>
+                    <div>
+                        ${(e.keywords || []).map(k => `<span class="kw-badge ${k === activeFilter ? 'highlight' : ''}">#${k}</span>`).join('')}
+                    </div>
+                    <div class="exp-summary">${e.summary}</div>
+                    
+                    <button class="toggle-btn" id="btn-${e.id}" onclick="toggleDetail('${e.id}')">
+                        <i class="fa-solid fa-chevron-down"></i> 상세 서술 과정 보기
+                    </button>
+
+                    <div class="detail-panel" id="panel-${e.id}">
+                        <div class="story-section">
+                            <div class="story-label"><i class="fa-solid fa-circle-info"></i> 프로젝트 배경 및 목표</div>
+                            <div class="story-text">${e.bg}</div>
+                        </div>
+                        <div class="story-section">
+                            <div class="story-label"><i class="fa-solid fa-user-gear"></i> 핵심 실행 과정 & 소통 방식</div>
+                            <div class="story-text">${e.action}</div>
+                        </div>
+                        <div class="story-section">
+                            <div class="story-label"><i class="fa-solid fa-trophy"></i> 정량적 성과 & 교훈</div>
+                            <div class="story-text">${e.result}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openExpModal() {
+            document.getElementById('expId').value = '';
+            document.getElementById('modalTitle').innerText = '새 경험 추가';
+            document.getElementById('formTitle').value = '';
+            document.getElementById('formOrg').value = '';
+            document.getElementById('formPeriod').value = '';
+            document.getElementById('formSummary').value = '';
+            document.getElementById('formBg').value = '';
+            document.getElementById('formAction').value = '';
+            document.getElementById('formResult').value = '';
+            
+            renderKwCheckboxes([]);
+            document.getElementById('expModal').classList.add('active');
+        }
+
+        function closeExpModal() {
+            document.getElementById('expModal').classList.remove('active');
+        }
+
+        function renderKwCheckboxes(selectedKws) {
+            const container = document.getElementById('formKeywords');
+            container.innerHTML = KEYWORDS.filter(k => k !== '전체').map(k => `
+                <label class="kw-check-item">
+                    <input type="checkbox" name="kwCheck" value="${k}" ${selectedKws.includes(k) ? 'checked' : ''}>
+                    <span>${k}</span>
+                </label>
+            `).join('');
+        }
+
+        function editExp(id) {
+            const item = experiences.find(e => e.id === id);
+            if (item) {
+                document.getElementById('expId').value = item.id;
+                document.getElementById('modalTitle').innerText = '경험 데이터 수정';
+                document.getElementById('formTitle').value = item.title;
+                document.getElementById('formOrg').value = item.org;
+                document.getElementById('formPeriod').value = item.period;
+                document.getElementById('formSummary').value = item.summary;
+                document.getElementById('formBg').value = item.bg;
+                document.getElementById('formAction').value = item.action;
+                document.getElementById('formResult').value = item.result;
+                
+                renderKwCheckboxes(item.keywords || []);
+                document.getElementById('expModal').classList.add('active');
+            }
+        }
+
+        function deleteExp(id) {
+            if (confirm('이 경험 항목을 삭제하시겠습니까?')) {
+                experiences = experiences.filter(e => e.id !== id);
+                localStorage.setItem('my_exps', JSON.stringify(experiences));
+                renderExps();
+            }
+        }
+
+        function saveExp(e) {
+            e.preventDefault();
+            const id = document.getElementById('expId').value || 'exp-' + Date.now();
+            const checkedKws = Array.from(document.querySelectorAll('input[name="kwCheck"]:checked')).map(cb => cb.value);
+
+            const newItem = {
+                id: id,
+                title: document.getElementById('formTitle').value,
+                org: document.getElementById('formOrg').value,
+                period: document.getElementById('formPeriod').value,
+                summary: document.getElementById('formSummary').value,
+                keywords: checkedKws.length > 0 ? checkedKws : ['주도성(과정,결과)'],
+                bg: document.getElementById('formBg').value,
+                action: document.getElementById('formAction').value,
+                result: document.getElementById('formResult').value
+            };
+
+            const index = experiences.findIndex(e => e.id === id);
+            if (index >= 0) experiences[index] = newItem;
+            else experiences.unshift(newItem);
+
+            localStorage.setItem('my_exps', JSON.stringify(experiences));
+            renderExps();
+            closeExpModal();
+        }
+    </script>
+</body>
+</html>
