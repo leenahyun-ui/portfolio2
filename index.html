@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 테마별 색상 변수 설정 */
         :root[data-theme="teal"] {
             --primary: #14b8a6;
             --primary-dark: #0f766e;
@@ -81,7 +80,6 @@
         .btn-change-pass { display: none; background: var(--primary-light); border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; color: var(--text-main); cursor: pointer; }
         .admin-mode .btn-change-pass { display: inline-block; }
 
-        /* 히어로 프로필 영역 */
         .hero-section {
             min-height: 100vh;
             display: flex;
@@ -212,7 +210,6 @@
         .kw-checkboxes { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; background: var(--bg); padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
         .kw-check-item { font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer; }
 
-        /* 📱 모바일 최적화 미디어 쿼리 */
         @media (max-width: 768px) {
             .nav-container { padding: 12px 16px; }
             .brand { font-size: 1rem; }
@@ -254,7 +251,6 @@
                 <i class="fa-solid fa-leaf"></i> <span id="dispHeaderBrand">PORTFOLIO HUB</span>
             </div>
             <div class="nav-actions">
-                <!-- 테마 변경 드롭다운 -->
                 <select class="theme-select" id="themeSelect" onchange="changeTheme(this.value)">
                     <option value="teal">🌿 민트</option>
                     <option value="blue">🌊 블루</option>
@@ -267,7 +263,6 @@
         </div>
     </header>
 
-    <!-- 프로필 히어로 영역 -->
     <section class="hero-section">
         <div class="hero-card">
             <button class="btn-edit-profile" onclick="openProfileModal()"><i class="fa-solid fa-pen"></i> 프로필 & 로고 수정</button>
@@ -291,7 +286,6 @@
         </a>
     </section>
 
-    <!-- 경험 목록 구역 -->
     <div class="main-container" id="experiences">
         <section>
             <div class="section-header">
@@ -318,7 +312,6 @@
         </section>
     </div>
 
-    <!-- 1. 프로필 정보 & 상단 브랜딩 타이틀 수정 모달 -->
     <div class="modal-overlay" id="profileModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -366,7 +359,6 @@
         </div>
     </div>
 
-    <!-- 2. 경험 수정/추가 모달 -->
     <div class="modal-overlay" id="expModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -415,7 +407,6 @@
         </div>
     </div>
 
-    <!-- 3. 비밀번호 변경 모달 -->
     <div class="modal-overlay" id="passModal">
         <div class="modal-content" style="max-width: 400px;">
             <div class="modal-header">
